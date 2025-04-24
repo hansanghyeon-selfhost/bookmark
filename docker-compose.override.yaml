@@ -8,8 +8,16 @@ services:
       - default
       - traefik_proxy
     labels:
+      - namespace=app
       - traefik.enable=true
-      ## HTTP Routers
-      - traefik.http.routers.${SERVICE}.entrypoints=web
+      # public
+      - traefik.http.routers.${SERVICE}.entrypoints=webs
       - traefik.http.routers.${SERVICE}.rule=Host(`${DOMAIN}`)
+      - traefik.http.routers.${SERVICE}.tls.certresolver=leresolver
+      - traefik.http.routers.${SERVICE}.service=${SERVICE}
       - traefik.http.services.${SERVICE}.loadbalancer.server.port=${APP_PORT}
+      # internal
+      - traefik.http.routers.${SERVICE}-internal.entrypoints=internal,internals
+      - traefik.http.routers.${SERVICE}-internal.rule=Host(`${DOMAIN_INTERNAL}`)
+      - traefik.http.routers.${SERVICE}-internal.service=${SERVICE}-internal
+      - traefik.http.services.${SERVICE}-internal.loadbalancer.server.port=${APP_PORT}

@@ -1,2 +1,5 @@
 .env
-volume 
+_v
+
+01-dockge
+.justfile*
