@@ -17,7 +17,7 @@ services:
       - traefik.http.routers.${SERVICE}.service=${SERVICE}
       - traefik.http.services.${SERVICE}.loadbalancer.server.port=${APP_PORT}
       # internal
-      - traefik.http.routers.${SERVICE}-internal.entrypoints=internal,internals
+      - traefik.http.routers.${SERVICE}-internal.entrypoints=reinternals
       - traefik.http.routers.${SERVICE}-internal.rule=Host(`${DOMAIN_INTERNAL}`)
       - traefik.http.routers.${SERVICE}-internal.service=${SERVICE}-internal
       - traefik.http.services.${SERVICE}-internal.loadbalancer.server.port=${APP_PORT}
